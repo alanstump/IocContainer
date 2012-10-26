@@ -10,54 +10,54 @@ namespace IocContainer
 {
     public static class Ioc
     {
-        internal static StandardKernel _standardKernel;
+        internal static StandardKernel StandardKernel;
 
         static Ioc()
         {
-            _standardKernel = new StandardKernel();
+            StandardKernel = new StandardKernel();
         }
 
         public static void AddSingletonDefinition<T>()
         {
             if (CanResolve<T>())
-                _standardKernel.Rebind<T>().ToSelf().InSingletonScope();
+                StandardKernel.Rebind<T>().ToSelf().InSingletonScope();
             else
-                _standardKernel.Bind<T>().ToSelf().InSingletonScope();
+                StandardKernel.Bind<T>().ToSelf().InSingletonScope();
         }
 
         public static void AddSingletonDefinition<TInt, TImp>() where TImp : TInt
         {
             if (CanResolve<TInt>())
-                _standardKernel.Rebind<TInt>().To<TImp>().InSingletonScope();
+                StandardKernel.Rebind<TInt>().To<TImp>().InSingletonScope();
             else            
-                _standardKernel.Bind<TInt>().To<TImp>().InSingletonScope();
+                StandardKernel.Bind<TInt>().To<TImp>().InSingletonScope();
         }
 
         public static void AddPrototypeDefinition<T>()
         {
             if (CanResolve<T>())
-                _standardKernel.Rebind<T>().ToSelf();
+                StandardKernel.Rebind<T>().ToSelf();
             else
-                _standardKernel.Bind<T>().ToSelf();
+                StandardKernel.Bind<T>().ToSelf();
         }
 
         public static void AddPrototypeDefinition<TInt, TImp>() where TImp : TInt
         {
             if (CanResolve<TInt>())
-                _standardKernel.Rebind<TInt>().To<TImp>();
+                StandardKernel.Rebind<TInt>().To<TImp>();
             else
-                _standardKernel.Bind<TInt>().To<TImp>();
+                StandardKernel.Bind<TInt>().To<TImp>();
         }
 
         public static T Get<T>()
         {
-            return _standardKernel.Get<T>();
+            return StandardKernel.Get<T>();
         }
 
         static bool CanResolve<T>()
         {
-            var request = _standardKernel.CreateRequest(typeof(T), x => true, new List<IParameter>(), false, false);
-            return _standardKernel.CanResolve(request);
+            var request = StandardKernel.CreateRequest(typeof(T), x => true, new List<IParameter>(), false, false);
+            return StandardKernel.CanResolve(request);
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Web.Http;
+
 [assembly: WebActivator.PreApplicationStartMethod(typeof(IocContainer.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(IocContainer.App_Start.NinjectWebCommon), "Stop")]
 
@@ -39,12 +41,10 @@ namespace IocContainer.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
-            kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-            kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-            
-            RegisterServices(kernel);
-            return kernel;
+            Ioc.StandardKernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+            Ioc.StandardKernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+            GlobalConfiguration.Configuration.DependencyResolver = new IocResolver();
+            return Ioc.StandardKernel;
         }
 
         /// <summary>
