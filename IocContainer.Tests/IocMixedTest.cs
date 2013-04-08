@@ -1,5 +1,4 @@
-﻿using IocContainer;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace IocContainer.Tests
 {
