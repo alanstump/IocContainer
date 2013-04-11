@@ -3,5 +3,7 @@
   <Config name="Debug" binpathtype="Auto">
     <assembly path="IocContainer.Tests\bin\Debug\IocContainer.Tests.dll" />
   </Config>
-  <Config name="Release" binpathtype="Auto" />
+  <Config name="Release" binpathtype="Auto">
+    <assembly path="IocContainer.Tests\bin\Release\IocContainer.Tests.dll" />
+  </Config>
 </NUnitProject>
